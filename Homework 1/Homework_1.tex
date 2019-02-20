@@ -1,0 +1,158 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb, mathtools}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{fixltx2e}
+\usepackage[shortlabels]{enumitem}
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+ 
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{question}[2][Question]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newcommand{\textfrac}[2]{\dfrac{\text{#1}}{\text{#2}}}
+
+\begin{document}
+
+\title{Statistical Theory II: Chapter 7 - Sampling Distributions and the Central Limit Theorem}
+
+\author{Chris Hayduk}
+\date{\today}
+
+\maketitle
+
+\begin{problem}{7.10}
+\end{problem}
+
+\begin{enumerate}[label=\alph*]
+	\item\begin{align*}
+		 P(|\overline{Y} - \mu| \leq 0.3)
+		 &= P[-0.3 \leq (\overline{Y} - \mu) \leq 0.3]\\
+		 &= P(-\frac{0.3}{\sigma/\sqrt{n}} \leq \frac{\overline{Y} - \mu}{\sigma/\sqrt{n}} \leq \frac{0.3}{\sigma/\sqrt{n}})
+		 \end{align*}\\
+		 Since $\frac{\overline{Y} - \mu}{\sigma/\sqrt{n}}$ has a standard normal distribution, we can write:
+		 \begin{align*}
+		 P(|\overline{Y} - \mu| \leq 0.3) &= P(-\frac{0.3}{2/\sqrt{9}} \leq Z \leq \frac{0.3}{2/\sqrt{9}})\\
+		 &= P(-0.45 \leq Z \leq 0.45)
+		 \end{align*}\\
+		 Using Table 4, Appendix 3 yields:
+		 \begin{align*}
+		 P(-0.45 \leq Z \leq 0.45) &= 1 - 2P(Z > 0.45)\\&= 1 - 2(0.3264) = 0.3472
+		 \end{align*}
+		 Thus, the probability is 0.3472 that the sample mean will be within 0.3 ounces of the true mean.
+	\item Using varying values of n
+	\begin{itemize}
+		\item $n = 25$\\
+			  \begin{align*}
+			  P(|\overline{Y} - \mu| \leq 0.3) &= P(-\frac{0.3}{2/\sqrt{25}} \leq Z \leq \frac{0.3}{2/\sqrt{25}})\\
+			  &= P(-0.75 \leq Z \leq 0.75)
+			  \end{align*}\\
+			  Using Table 4, Appendix 3 yields:
+			  \begin{align*}
+			  P(-0.75 \leq Z \leq 0.75) &= 1 - 2P(Z > 0.75)\\&= 1 - 2(0.2266) = 0.5468
+			  \end{align*}
+			  Thus, the probability is 0.5468 that the sample mean will be within 0.3 ounces of the true mean.
+		\item $n = 36$\\
+			  \begin{align*}
+			  P(|\overline{Y} - \mu| \leq 0.3) &= P(-\frac{0.3}{2/\sqrt{36}} \leq Z \leq \frac{0.3}{2/\sqrt{36}})\\
+			  &= P(-0.9 \leq Z \leq 0.9)
+			  \end{align*}\\
+			  Using Table 4, Appendix 3 yields:
+			  \begin{align*}
+			  P(-0.9 \leq Z \leq 0.9) &= 1 - 2P(Z > 0.9)\\&= 1 - 2(0.1841) = 0.6318
+			  \end{align*}
+			  Thus, the probability is 0.6318 that the sample mean will be within 0.3 ounces of the true mean.
+		\item $n = 49$\\
+		    \begin{align*}
+			P(|\overline{Y} - \mu| \leq 0.3) &= P(-\frac{0.3}{2/\sqrt{49}} \leq Z \leq \frac{0.3}{2/\sqrt{49}})\\
+			&= P(-1.05 \leq Z \leq 1.05)
+			\end{align*}\\
+			Using Table 4, Appendix 3 yields:
+			\begin{align*}
+			P(-1.05 \leq Z \leq 1.05) &= 1 - 2P(Z > 1.05)\\&= 1 - 2(0.1469) = 0.7062
+			\end{align*}
+			Thus, the probability is 0.7062 that the sample mean will be within 0.3 ounces of the true mean.
+		\item $n = 64$\\
+			\begin{align*}
+			P(|\overline{Y} - \mu| \leq 0.3) &= P(-\frac{0.3}{2/\sqrt{64}} \leq Z \leq \frac{0.3}{2/\sqrt{64}})\\
+			&= P(-1.2 \leq Z \leq 1.2)
+			\end{align*}\\
+			Using Table 4, Appendix 3 yields:
+			\begin{align*}
+			P(-1.2 \leq Z \leq 1.2) &= 1 - 2P(Z > 1.2)\\&= 1 - 2(0.1151) = 0.7698
+			\end{align*}
+			Thus, the probability is 0.7698 that the sample mean will be within 0.3 ounces of the true mean.
+	\end{itemize}
+	\item As $n$ increases, the probability that the sample mean is within 0.3 ounces of the true mean increases.
+	\item When $\sigma = 1$, the probabilities are much higher. This occurs because there is less variability in the data and, as a result, there is less variability in the sample means.
+\end{enumerate}
+
+\begin{problem}{7.48}
+\end{problem}
+
+\begin{enumerate}[label=\alph*]
+	\item\begin{align*}
+	P(|\overline{Y} - \mu| \leq 1)
+	&= P[-1 \leq (\overline{Y} - \mu) \leq 1]\\
+	&= P(-\frac{1}{\sigma/\sqrt{n}} \leq \frac{\overline{Y} - \mu}{\sigma/\sqrt{n}} \leq \frac{1}{\sigma/\sqrt{n}})
+	\end{align*}\\
+	Since $\frac{\overline{Y} - \mu}{\sigma/\sqrt{n}}$ has a standard normal distribution, we can write:
+	\begin{align*}
+	P(|\overline{Y} - \mu| \leq 1) &= P(-\frac{1}{12/\sqrt{35}} \leq Z \leq \frac{1}{12/\sqrt{35}})\\
+	&\approx P(-0.49 \leq Z \leq 0.49)
+	\end{align*}\\
+	Using Table 4, Appendix 3 yields:
+	\begin{align*}
+	P(-0.49 \leq Z \leq 0.49) &= 1 - 2P(Z > 0.49)\\&= 1 - 2(0.3121) = 0.3758
+	\end{align*}
+	Thus, the probability is about 0.3758 that the sample mean (26\%) is within 1\% of the mean of the population of estimates of all economists.
+	\item No because each measurement is just an estimate of the percent tax saving.
+\end{enumerate}
+
+\begin{problem}{7.62}
+\end{problem}
+Let $Y_i$ denote the service time for the $i$th customer. Then we have:\\
+$P(\sum_{i=1}^{100}Y_i > 240) = P(\overline{Y} > \frac{240}{100}) = P(\overline{Y} > 2.40)$
+
+Since the sample size is large, the central limit theorem tells us that $\overline{Y}$ is approximately normally distributed with mean $\mu_{\overline{Y}} = \mu = 2.5$ and variance $\sigma_{\overline{Y}}^2 = \sigma^2/n = 4.0/100$. Therefore, using Table 4, Appendix 3 yields:
+\begin{align*}
+P(\overline{Y} > 2.40) &= P(\frac{\overline{Y} - 2.50}{\frac{2.0}{\sqrt{100}}} > \frac{2.40 - 2.50}{\frac{2.0}{\sqrt{100}}})\\
+&\approx P(Z \leq (2.4 - 2.5)\frac{10}{2}) = P(Z > -\frac{1}{2})\\
+&= 1 - P(Z > 0.5) = 1 - 0.3085 = 0.6915
+\end{align*}
+
+Thus, the probability is about 0.6915 that it will take more than 4 hours to process the orders of 100 people.
+
+\begin{problem}{7.92}
+\end{problem}
+
+\begin{align*}
+P(|\overline{X} - \overline{Y}| > 0.6) &= P(|Z| \leq \frac{0.6}{\sqrt{\frac{6.4^2 + 7.2^2}{64}}}\\
+	&\approx P(|Z| \leq 0.5) = 0.6170
+\end{align*}\\
+
+\begin{problem}{7.96}
+\end{problem}
+
+Each $Y_i$ has a beta distribution with $\alpha = 3$ and $\beta = 1$. By Theorem 4.11, $\mu = \frac{\alpha}{\alpha + \beta} = \frac{3}{4}$ and $\sigma^2 = \frac{\alpha\beta}{(\alpha + \beta)^2(\alpha + \beta + 1)} = \frac{3}{80}$.\\
+Thus,\\
+\begin{align*}
+P(\overline{Y} > 0.7) &\approx P(Z > \frac{0.7 - 0.75}{\sqrt{\frac{0.0375}{40}}})\\
+	&= P(Z > -1.63) = 1 - P(Z > 1.63) = 1 - 0.0516 = 0.9484
+\end{align*}\\
+Thus, the probability that the ore will be rejected is about 0.9484.
+\end{document}
