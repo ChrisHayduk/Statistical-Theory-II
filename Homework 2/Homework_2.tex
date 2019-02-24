@@ -1,0 +1,107 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb, mathtools}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{fixltx2e}
+\usepackage[shortlabels]{enumitem}
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+ 
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{question}[2][Question]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newcommand{\textfrac}[2]{\dfrac{\text{#1}}{\text{#2}}}
+
+\begin{document}
+
+\title{Statistical Theory II: Chapter 7 - Estimation}
+
+\author{Chris Hayduk}
+\date{\today}
+
+\maketitle
+
+\begin{problem}{8.12}
+\end{problem}
+
+\begin{enumerate}[label=\alph*)]
+	\item $E(\hat{\theta}) = \overline{Y} = \frac{\theta + (\theta+1)}{2} = \theta + \frac{1}{2}$\\
+		  $B(\hat{\theta}) = E(\hat{\theta}) - \theta = \theta + \frac{1}{2} - \theta = \frac{1}{2}$
+	\item Let $E(\hat{\theta}) = \overline{Y} - \frac{1}{2} = \theta$\\
+		  \\
+		  Then,\\
+		  $B(\hat{\theta}) = E(\hat{\theta}) - \theta = \theta - \theta = 0$
+	\item $MSE(\overline{Y}) = V(\overline{Y}) + [B(\overline{Y})]^2 = \frac{1}{12n} + \frac{1}{2}$
+\end{enumerate}
+
+\begin{problem}{8.22}
+\end{problem}
+
+Let $b = 2\sigma_{\mu} = 2(\frac{\sigma}{\sqrt{n}}) \approx 2(\frac{\sigma_{\mu}}{\sqrt{2}}) = \frac{5.6}{\sqrt{200}} \approx 0.791960.$\\
+
+Thus, the probability that $\epsilon \leq 0.791960$ is approximately 0.95. As a result, we expect the mean to fall in the range $[6.40804, 7.99196]$ with 95\% certainty.
+
+\begin{problem}{8.46}
+\end{problem}
+
+\begin{enumerate}[label=\alph*)]
+	\item $m_U(t) = E(e^{tU}) = E(e^{t\frac{2Y}{\theta}}) = m_Y(\frac{2t}{\theta})$\\
+	\\
+	Since $Y$ is distributed exponentially with mean $\theta$, we know from Example 6.12 that $m_Y(t) = (1 - t\theta)^{-1}$\\
+	\\
+	Thus,\\
+	$m_Y(\frac{2t}{\theta}) = (1 - \frac{2t}{\theta}\theta)^{-1} = (1 - 2t)^{-1}$\\
+	\\
+	This is the moment generating function for a $\chi^2$-distribution with two degrees of freedom. As a result, $U$ has the same distribution. $U$ is also a pivotal quantity because the distribution does not depend on $\theta$.
+	\item From Appendix 3, Table 6 with two degrees of freedom:\\
+	$P(0.102587 \leq \frac{2Y}{\theta} \leq 5.99147) = 0.9$\\
+	\\
+	This yields,\\
+	$(\frac{2Y}{5.99147}, \frac{2Y}{0.102587})$\\
+	as the 90\% confidence interval for $\theta$.
+	\item $\frac{2Y}{5.99147} \approx \frac{Y}{2.996}$ and $\frac{2Y}{0.102587} \approx \frac{Y}{0.051}$\\
+	\\
+	Thus, the two confidence intervals are equivalent.
+\end{enumerate}
+
+\begin{problem}{8.60}
+\end{problem}
+
+\begin{enumerate}[label=\alph*)]
+	\item From Example 8.6:\\
+	\\$\hat{\theta}_L = \hat{\theta} - z_{\alpha/2}\sigma_{\hat{\theta}}$ and $\hat{\theta}_U = \hat{\theta} + z_{\alpha/2}\sigma_{\hat{\theta}}$\\
+	\\
+	Thus, with $\alpha = 0.01$,\\
+	\\
+	$\hat{\theta}_L = 98.25 - 2.576(\frac{0.73}{\sqrt{130}}) \approx 98.0851$ and $\hat{\theta}_U = 98.25 + 2.576(\frac{0.73}{\sqrt{130}}) \approx 98.4149$
+	\item This confidence interval does not contain the value 98.6 degrees. Thus, we can say with 99\% confidence that 98.6 degrees is not an accurate estimate for the average body temperature of a healthy human.
+\end{enumerate}
+
+\begin{problem}{8.102}
+
+\end{problem}
+\begin{align*}
+		 s^2 &= [\frac{1}{n-1}]\sum\limits_{i=1}^{n} (Y_i - \overline{Y})^2\\
+		 &= [\frac{1}{4}]\sum\limits_{i=1}^{5} (Y_i - 57)^2\\
+		 &= \frac{289}{2} = 144.5
+\end{align*}\\
+
+Thus, with $s^2 = 144.5$, $\frac{\alpha}{2} = 0.005$, and $df = 4$, Table 6, Appendix 3 gives $\chi^2_{0.995} = 0.206990$ and $\chi^2_{0.005} = 14.8602$. Hence, the 90\% confidence interval for $\sigma^2$ is,\\
+\\
+$(\frac{(4)(144.5)}{14.8602}, \frac{(4)(144.5)}{0.206990}) \approx (38.896, 2792.405)$
+
+\end{document}
