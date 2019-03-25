@@ -1,0 +1,104 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb, mathtools}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{fixltx2e}
+\usepackage[shortlabels]{enumitem}
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+ 
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{question}[2][Question]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newcommand{\textfrac}[2]{\dfrac{\text{#1}}{\text{#2}}}
+
+\begin{document}
+
+\title{Statistical Theory II: Chapter 9 - Properties of Point Estimators and Methods of Estimation}
+
+\author{Chris Hayduk}
+\date{\today}
+
+\maketitle
+
+\begin{problem}{9.20}
+\end{problem}
+
+We know that $\frac{Y}{n}$ is an unbiased estimator of $p$ with $V(\frac{Y}{n}) = \frac{pq}{n}$ from Ch. 8.\\
+
+Since $pq$ is a constant, $$\lim_{n\to\infty} \frac{pq}{n} = pq\lim_{n\to\infty} \frac{1}{n} = pq(0) = 0$$
+
+By Theorem 9.1, $\frac{Y}{n}$ is thus a consistent estimator of $p$.
+
+\begin{problem}{9.46}
+\end{problem}
+
+We know that an exponential distribution has the following pdf:
+
+$$f(x; \beta) = \begin{cases} 
+\frac{1}{\beta}e^{-\frac{x}{\beta}} & x \geq 0 \\
+0 & x < 0
+\end{cases}$$
+
+Thus,
+\begin{align*}
+L(y_1, y_2, ..., y_n | \beta) &= f(y_1, y_2, ..., y_n | \beta)\\
+&= f(y_1 | \beta) * f(y_2 | \beta) * ... * f(y_n | \beta)\\
+&= \frac{1}{\beta}e^{-\frac{y_1}{\beta}} * ... * \frac{1}{\beta}e^{-\frac{y_n}{\beta}}\\
+&= \left(\frac{1}{\beta}\right)^n e^{-\Sigma y_i/\beta}\\
+&= \left(\frac{1}{\beta}\right)^n e^{-n\overline{y}/\beta}
+\end{align*}
+
+If we let $g(\overline{y}, \beta) = \left(\frac{1}{\beta}\right)^n e^{-n\overline{y}/\beta}$ nd $h(y_1, y_2, ..., y_n) = 1$, we can see that,
+
+$$L(y_1, ..., y_n | \beta) = g(\overline{y}, \beta) * h(y_1, ..., y_n)$$
+
+This satisfies Theorem 9.4, and thus $\overline{Y}$ is a sufficient statistic for the parameter $\beta$.
+
+\begin{problem}{9.56}
+\end{problem}
+
+We know from Exercise 9.38(b) that $\Sigma (Y_i - \mu)^2$ is sufficient for $\sigma^2$.\\
+
+We also know that $\hat{\sigma}^2 = \frac{1}{n-1} \Sigma (y_i - \mu)^2$ is an unbiased estimator for $\sigma^2$ from Ch. 8.4. Since $\hat{\sigma}^2$ is unbiased and is a function of the sufficient statistic, it is an MVUE for $\sigma^2$.
+
+\begin{problem}{9.70}
+\end{problem}
+
+We need to estimate one parameter, $\lambda$, so we only need to find $\mu_1' = m_1'$.\\
+
+The value of $\mu_1'$ for a Poisson random variable is,
+$$\mu_1' = \mu = \lambda$$.\\
+
+The first sample moment is,
+$$m_1' = \frac{1}{n} \Sigma Y_i = \overline{Y}$$.\\
+
+Thus, 
+$$\mu_1' = \lambda = \overline{Y}$$.
+
+\begin{problem}{9.82}
+\end{problem}
+
+\begin{enumerate}[label=\alph*)]
+	\item By Theorem 9.4, a sufficient statistic for $\theta$ is $\Sigma Y_i^r$.
+	\item $ln(L(\theta)) = -nln(\theta) + nln(r) + (r-1)ln(\Pi y_i) - \Sigma y_i^r/\theta$\\
+	After taking the derivative with regards to $\theta$ and setting the equation equal to 0, we get: $$\hat{\theta} = \frac{1}{n} \Sigma Y_i^r$$.
+	\item We know that $\hat{\theta}$ is a function of the sufficient statistic.\\
+	$E(Y^r) = \theta$, so $\hat{\theta}$ is unbiased and, by Theorem 9.5, $\hat{\theta}$ is the MVUE for $\theta$.
+\end{enumerate}
+
+\end{document}
