@@ -6,6 +6,9 @@
 \usepackage{lmodern}
 \usepackage{fixltx2e}
 \usepackage[shortlabels]{enumitem}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
  
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\R}{\mathbb{R}}
@@ -38,6 +41,163 @@
 \begin{problem}{10.38}
 \end{problem}
 
+We know $H_0: \mu \geq 64$. The rejection region for the test is given by:
+\begin{align*}
+	z = \frac{\overline{y} - 64}{\sigma/\sqrt{n}} < -2.326
+\end{align*}
 
+This is equivalent to,
+\begin{align*}
+	\overline{y} &< 64 - 2.36\left(\frac{\sigma}{\sqrt{n}}\right) = 61.36
+\end{align*}
+
+Given $\mu = 60$, we have
+\begin{align*}
+	\beta = P(\overline{Y} > 61.36 | \mu = 60) &= P(Z > \frac{61.36-60}{8/\sqrt{50}}\\
+	&= P(Z > 1.2) = 0.1151
+\end{align*}
+
+\begin{problem}{10.54}
+\end{problem}
+
+\begin{enumerate}[label=\alph*)]
+	\item We have $H_0: p = 0.85$ and $H_a: p > 0.85$.\\
+	
+	First we compute the test statistic:
+	 \begin{align*}
+		z &= \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}}\\
+		&= \frac{0.96 - 0.85}{\sqrt{0.85(0.15)/300}}\\
+		&\approx 5.34
+	\end{align*}
+	
+	We also note that for an upper-tail test with $\alpha = 0.01$, we check,
+	\begin{align*}
+		&z > z_{\alpha}\\
+		&z > z_{0.01}\\
+		&5.34 > 2.33
+	\end{align*}
+	
+	Since this inequality is true, we can reject the null hypothesis and conclude that the proportion of right-handed executives at large corporations is greater than 0.85.
+	
+	\item The p-value for the test is given by (calculated in R using the function \texttt{pnorm()}):
+	
+	\begin{align*}
+		p = P(Z > 5.34) = 4.647329\mathrm{e}{-08}
+	\end{align*}
+	
+	This indicates that we have very strong evidence against $H_0$.
+\end{enumerate}
+
+\begin{problem}{10.70}
+\end{problem}
+
+\begin{enumerate}[label=\alph*)]
+	\item We have $H_0 = \mu_1 - \mu_2 = 0$ and $H_a = \mu_1 - \mu_2 > 0$ where $\mu_1$ is the mean for juveniles and $\mu_2$ is the mean for nestlings. In this case, $D_0 = 0$.\\
+	
+	Now we compute the test statistic,
+	\begin{align*}
+		T &= \frac{\overline{Y_1} - \overline{Y_2}}{S_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}\\
+		&= \frac{0.041 - 0.026}{0.0120178\sqrt{\frac{1}{10}+\frac{1}{13}}}\\
+		&\approx 2.967
+	\end{align*}
+	
+	We have degrees of freedom $v = 10 + 13 - 2 = 21$.\\
+	
+	The rejection region is given for $\alpha = 0.05$ is given by,
+	\begin{align*}
+		&T > t_{\alpha}\\
+		&T > t_{0.05}\\
+		&2.967 > 1.721
+	\end{align*}
+	
+	Since this inequality is satisfied, we can reject $H_0$ and conclude that juveniles have a larger mean than nestlings.
+	
+	\item We have $H_0 = \mu_1 - \mu_2 = 0.01$ and $H_a = \mu_1 - \mu_2 > 0.01$ where $\mu_1$ is the mean for juveniles and $\mu_2$ is the mean for nestlings. In this case, $D_0 = 0.01$.\\
+	
+	ow we compute the test statistic,
+	\begin{align*}
+		T &= \frac{\overline{Y_1} - \overline{Y_2} - D_0}{S_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}\\
+		&= \frac{0.041 - 0.026 - 0.01}{0.0120178\sqrt{\frac{1}{10}+\frac{1}{13}}}\\
+		&\approx 0.989
+	\end{align*}
+	
+	We have degrees of freedom $v = 10 + 13 - 2 = 21$.\\
+	
+	Using the R function \texttt{pt()} and the test statistic and degrees of freedom from above, we yield a p-value of $0.1669612$.
+\end{enumerate}
+
+\begin{problem}{10.96}
+\end{problem}
+
+\begin{enumerate}[label=\alph*)]
+	\item Graph of power function of the test with rejection region $Y > 0.5$:\\
+	\begin{tikzpicture}
+	\begin{axis}[
+	xmin=0,
+	ymin=0,
+	xmax=10,
+	ymax=1.2,
+	xlabel=$\theta$,
+	ylabel={$\text{power}(\theta) = 1-.5^\theta$}
+	] 
+	\addplot[smooth,domain=0:10]{1-.5^x}; 
+	\addplot[dotted,thick,domain=0:10]{1};
+	\end{axis}
+	\end{tikzpicture}
+	
+	\item We have $H_0: \theta = 1$ and $H_a: \theta = \theta_a$, $\theta_a < 1$.\\
+	
+	The likelihood ratio test in this case is,
+	\begin{align*}
+		&\frac{L(\theta_0)}{L(\theta_a)} < k\\
+		\implies &\frac{L(1)}{L(\theta_a)} < k\\
+		\implies &\frac{1}{\theta_a y^{\theta_a - 1}} < k\\
+		\implies &y > \left(\frac{1}{\theta_a k}\right)^{\frac{1}{\theta_a - 1}} = c
+	\end{align*}
+	
+	where $c$ is chosen such that the test score is of size $\alpha$. We can find this by,
+	\begin{align*}
+		&P(Y \geq c | \theta = 1) = \int_c^1 dy = 1 - c = \alpha\\
+		\implies &c = 1 - \alpha
+	\end{align*}
+	
+	The rejection region does not depend on a specific value for $\theta_a$, so this is a uniformly most powerful test.
+\end{enumerate}
+
+\begin{problem}{10.98}
+\end{problem}
+
+\begin{enumerate}[label=\alph*)]
+	\item The uniformly most powerful test for testing $H_0: \theta = \theta_0$ against $H_a: \theta > \theta_0$:\\
+	\begin{align*}
+		&\frac{L(\theta_0)}{L(\theta_a)} = \left(\frac{\theta_a}{\theta_0}\right)^n exp\left[-\left(\frac{1}{\theta_0} - \frac{1}{\theta_a}\right) \sum_{i=1}^n y_i^m\right] < k\\
+		\implies &\sum_{i=1}^n y_i^m > -\left[\text{ln}k + n\text{ln}\left(\frac{\theta_0}{\theta_a}\right)\right] \text{X} \left[\frac{1}{\theta_0} - \frac{1}{\theta_a}\right]^{-1} = c
+	\end{align*}
+	
+	Thus, the rejection region has the form $T = \sum_{i=1}^n Y_i^m > c$ where $c$ is chosen such that the rejection region is of size $\alpha$.
+	
+	The distribution of $Y^m$ is exponential, so under $H_0$, we have
+	\begin{align*}
+		\frac{2T}{\theta_0} = \frac{2\sum_{i=1}^n Y_i^m}{\theta_0} > \frac{2c}{\theta_0}
+	\end{align*}
+	
+	This is a chi-square distribution with $2n$ degrees of freedom. This does not depend on the specific $\theta_a > \theta_0$, so this is the uniformly most powerful test.
+	
+	\item We have,
+	\begin{align*}
+		\frac{2\sum_{i}^{n} Y_i^m}{\theta_a} \sim \chi_{2n}^2
+	\end{align*}
+	
+	which yields,
+	
+	\begin{align*}
+		\frac{1}{4} \chi_{2n, 0.05}^2 = \chi_{2n, 0.95}^2
+	\end{align*}
+	
+	We know that $\chi_{12, 0.05}^2 = 21.02$ and $\chi_{12, 0.95}^2 = 5.226$ from the table in the appendix. Thus the critical region will be,
+	\begin{align*}
+		\sum_{i=1}^{n} Y_i^m > \frac{\theta_0}{2}\chi_{12, 0.05}^2 = \frac{100}{2}(21.2) = 1051
+	\end{align*}
+\end{enumerate}
 
 \end{document}
